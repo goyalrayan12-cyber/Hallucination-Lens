@@ -1,0 +1,28 @@
+# --- secrets: NEVER commit these ---
+.env
+*.key
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# --- macOS / editors ---
+.DS_Store
+.idea/
+
+# --- data & caches (large / regenerable) ---
+data/*
+!data/.gitkeep
+.cache/
+huggingface/
+
+# --- throw-away runs (real runs under runs/ ARE meant to be committed) ---
+runs/smoke_test/

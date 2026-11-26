@@ -1,0 +1,3 @@
+# Simplest install on a Mac:   pip install -r requirements.txt
+# (equivalent to: pip install -e ".[all]")
+-e .[all]

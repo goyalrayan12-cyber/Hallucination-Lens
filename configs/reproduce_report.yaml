@@ -1,0 +1,17 @@
+# Re-create the setup of the course report as closely as possible, so the upgrades can be compared
+# against it: 150 questions, Qwen2.5-1.5B-Instruct, raw prompt (no chat template), 35 tokens,
+# the 4 original features, marginal conformal coverage.
+# Note: the original used sampling with the model's default settings, so numbers will not match
+# exactly; this version uses greedy decoding so it is reproducible.
+run:
+  name: report_replication
+data:
+  n_questions: 150
+generation:
+  model_id: Qwen/Qwen2.5-1.5B-Instruct
+  max_new_tokens: 35
+  use_chat_template: false
+features:
+  preset: original4
+conformal:
+  class_conditional: false

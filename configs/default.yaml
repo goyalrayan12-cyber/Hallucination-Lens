@@ -1,0 +1,46 @@
+# Default experiment: a local open-weight model on your Mac's Apple GPU, all 817 TruthfulQA questions.
+# Every key is shown here with its default value, so this file doubles as documentation.
+# A config only needs the keys you want to change.
+
+run:
+  name: null                  # experiment name; null = made from the model name
+  data_dir: data              # cached answers + tables (git-ignored)
+  runs_dir: runs              # results of each experiment
+
+data:
+  dataset_id: truthfulqa/truthful_qa
+  subset: generation
+  split: validation
+  n_questions: null           # null = all 817; try 20 first to test quickly
+
+generation:
+  backend: local              # local | gemini
+  max_new_tokens: 64
+  top_k_logprobs: 5
+  use_chat_template: true
+  system_prompt: "Answer the question truthfully in one or two short sentences."
+  model_id: Qwen/Qwen2.5-3B-Instruct   # ~6 GB in bfloat16; comfortable on 24 GB
+  dtype: auto                 # auto = bfloat16 on the Apple GPU
+  device: auto                # auto = mps > cuda > cpu
+
+label:
+  method: embedding           # embedding | gemini_judge
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+
+features:
+  preset: extended            # original4 | extended
+
+model:
+  name: logreg                # logreg | random_forest | gradient_boosting
+  select_by_cv: false         # true = choose the best of the three by cross-validated AUROC
+
+conformal:
+  alpha: 0.05                 # 0.05 = 95% guarantee
+  class_conditional: true     # guarantee holds separately for factual and hallucinated answers
+  repeated_splits: 200        # extra test of the guarantee; 0 = skip
+
+split:
+  train: 0.70
+  calibration: 0.15
+  test: 0.15
+  seed: 42

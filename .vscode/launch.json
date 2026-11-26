@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "1. Smoke test (no model, no key)",
+      "type": "debugpy", "request": "launch", "module": "hallucination_lens",
+      "args": ["smoke-test"], "console": "integratedTerminal"
+    },
+    {
+      "name": "2. Full pipeline - local model (default.yaml)",
+      "type": "debugpy", "request": "launch", "module": "hallucination_lens",
+      "args": ["run-all", "--config", "configs/default.yaml"], "console": "integratedTerminal"
+    },
+    {
+      "name": "3. Quick local trial (generate 10 answers only)",
+      "type": "debugpy", "request": "launch", "module": "hallucination_lens",
+      "args": ["generate", "--config", "configs/default.yaml",
+               "--set", "data.n_questions=10", "--set", "run.name=quick_trial"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "4. Check Gemini key + logprob support",
+      "type": "debugpy", "request": "launch", "module": "hallucination_lens",
+      "args": ["gemini-check"], "console": "integratedTerminal"
+    },
+    {
+      "name": "5. Ask the guardrail (prompts you)",
+      "type": "debugpy", "request": "launch", "module": "hallucination_lens",
+      "args": ["ask", "--run", "${input:runDir}"], "console": "integratedTerminal"
+    }
+  ],
+  "inputs": [
+    { "id": "runDir", "type": "promptString", "description": "Run folder, e.g. runs/local_qwen2.5-3b-instruct" }
+  ]
+}

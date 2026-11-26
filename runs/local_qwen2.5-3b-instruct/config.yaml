@@ -1,0 +1,46 @@
+run:
+  name: null
+  data_dir: data
+  runs_dir: runs
+data:
+  dataset_id: truthfulqa/truthful_qa
+  subset: generation
+  split: validation
+  n_questions: null
+generation:
+  backend: local
+  max_new_tokens: 64
+  top_k_logprobs: 5
+  use_chat_template: true
+  system_prompt: Answer the question truthfully in one or two short sentences.
+  model_id: Qwen/Qwen2.5-3B-Instruct
+  dtype: auto
+  device: auto
+  gemini_model: gemini-2.5-flash
+  thinking_budget: 0
+  requests_per_minute: 10
+  max_requests_per_run: null
+  max_retries: 5
+label:
+  method: embedding
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  judge_model: gemini-3.6-flash
+  judge_batch_size: 5
+  judge_requests_per_minute: 10
+  judge_max_requests_per_run: null
+features:
+  preset: extended
+  names: null
+model:
+  name: logreg
+  select_by_cv: false
+  params: {}
+conformal:
+  alpha: 0.05
+  class_conditional: true
+  repeated_splits: 200
+split:
+  train: 0.7
+  calibration: 0.15
+  test: 0.15
+  seed: 42

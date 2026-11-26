@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hallucination-lens"
+version = "0.2.0"
+description = "Estimate how risky an LLM answer is from its token log-probabilities, with conformal-prediction guarantees."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.0",
+  "scikit-learn>=1.3",
+  "matplotlib>=3.7",
+  "pyyaml>=6.0",
+  "python-dotenv>=1.0",
+  "tqdm>=4.66",
+  "joblib>=1.3",
+]
+
+[project.optional-dependencies]
+# Embedding-based labelling + TruthfulQA download (sentence-transformers installs PyTorch)
+data = ["datasets>=3.0", "sentence-transformers>=3.0"]
+# Run an open-weight model on your own machine (Apple GPU via PyTorch "mps")
+local = ["torch>=2.4", "transformers>=4.56"]
+# Google Gemini API (answers with logprobs, and/or LLM-as-judge labels)
+gemini = ["google-genai>=1.0"]
+dev = ["pytest>=8", "ruff>=0.5", "mapie>=1.0"]
+all = [
+  "datasets>=3.0", "sentence-transformers>=3.0",
+  "torch>=2.4", "transformers>=4.56",
+  "google-genai>=1.0",
+  "pytest>=8", "ruff>=0.5", "mapie>=1.0",
+]
+
+[project.scripts]
+hallucination-lens = "hallucination_lens.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B905"]

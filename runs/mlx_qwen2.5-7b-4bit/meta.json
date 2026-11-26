@@ -1,0 +1,19 @@
+{
+  "feature_names": [
+    "mean_logprob",
+    "var_logprob",
+    "min_logprob",
+    "output_length",
+    "first_token_logprob",
+    "q10_logprob",
+    "frac_low_conf",
+    "mean_entropy_topk",
+    "mean_margin_topk",
+    "finished_naturally",
+    "max_step_drop",
+    "frac_deep_dip",
+    "max_dip_streak",
+    "late_minus_early_logprob"
+  ],
+  "tag": "mlx_qwen2.5-7b-4bit"
+}

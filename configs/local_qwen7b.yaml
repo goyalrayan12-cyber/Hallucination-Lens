@@ -1,0 +1,6 @@
+# A stronger local model. 7B in bfloat16 needs ~15 GB of memory: it fits on a 24 GB Mac,
+# but close heavy apps (browsers, Docker) first, and expect it to be ~2x slower than the 3B model.
+run:
+  name: local_qwen2.5-7b
+generation:
+  model_id: Qwen/Qwen2.5-7B-Instruct
